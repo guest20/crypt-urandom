@@ -8,6 +8,7 @@ use Exporter();
 *import = \&Exporter::import;
 our @EXPORT_OK = qw(
   urandom
+  urandom_ub
 );
 our %EXPORT_TAGS = ( 'all' => \@EXPORT_OK, );
 
@@ -109,8 +110,18 @@ _RTLGENRANDOM_PROTO_
     return;
 }
 
+sub urandom_ub {
+    my ($length) = @_;
+    return _urandom( 'sysread', $length );
+}
+
 sub urandom {
     my ($length) = @_;
+    return _urandom( 'read', $length );
+}
+
+sub _urandom {
+    my ( $type, $length ) = @_;
 
     my $length_ok;
     if ( defined $length ) {
@@ -145,7 +156,7 @@ sub urandom {
         return $buffer;
     }
     else {
-        my $result = $_urandom_handle->read( my $buffer, $length );
+        my $result = $_urandom_handle->$type( my $buffer, $length );
         if ( defined $result ) {
             if ( $result == $length ) {
                 return $buffer;
@@ -213,8 +224,18 @@ or equal to Windows 2000.
 =for stopwords cryptographic
 
 This function accepts an integer and returns a string of the same size
-filled with random data.  The first call will initialize the native 
+filled with random data.  The first call will initialize the native
 cryptographic libraries (if necessary) and load all the required Perl libraries
+This call is a buffered read on non Win32 platforms.
+
+=item C<urandom_ub>
+
+=for stopwords cryptographic
+
+This function accepts an integer and returns a string of the same size
+filled with random data.  The first call will initialize the native
+cryptographic libraries (if necessary) and load all the required Perl libraries
+This call is a unbuffered sysread on non Win32 platforms.
 
 =back
 
