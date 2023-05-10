@@ -1,4 +1,4 @@
-use Test::More tests => 6;
+use Test::More tests => 8;
 use Crypt::URandom();
 
 ok(length(Crypt::URandom::urandom(500)) == 500, 'Crypt::URandom::urandom(500) called successfully');
@@ -22,3 +22,17 @@ SKIP: {
 		ok($returns_binary_data, 'Crypt::Urandom::urandom_ub returns binary data');
 	}
 }
+my $exception_thrown = 1;
+eval {
+	Crypt::URandom::urandom();
+	$exception_thrown = 0;
+};
+chomp $@;
+ok($exception_thrown, "Correctly throws exception with no parameter:$@");
+$exception_thrown = 1;
+eval {
+	Crypt::URandom::urandom("sdfadsf");
+	$exception_thrown = 0;
+};
+chomp $@;
+ok($exception_thrown, "Correctly throws exception with none integer parameter:$@");
