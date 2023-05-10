@@ -163,6 +163,7 @@ sub _urandom {
             }
             else {
                 $_urandom_handle = undef;
+                $_initialised    = undef;
                 Carp::croak( "Only read $result bytes from "
                       . SINGLE_QUOTE()
                       . PATH()
@@ -172,6 +173,7 @@ sub _urandom {
         else {
             my $error = $OS_ERROR;
             $_urandom_handle = undef;
+            $_initialised    = undef;
             Carp::croak( 'Failed to read from '
                   . SINGLE_QUOTE()
                   . PATH()
