@@ -12,7 +12,7 @@ our @EXPORT_OK = qw(
 );
 our %EXPORT_TAGS = ( 'all' => \@EXPORT_OK, );
 
-our $VERSION  = '0.36';
+our $VERSION  = '0.37';
 our @CARP_NOT = ('Crypt::URandom');
 
 sub CRYPT_SILENT      { return 64; }               # hex 40
@@ -193,7 +193,7 @@ Crypt::URandom - Provide non blocking randomness
 
 =head1 VERSION
 
-This document describes Crypt::URandom version 0.36
+This document describes Crypt::URandom version 0.37
 
 
 =head1 SYNOPSIS
@@ -354,7 +354,7 @@ gratitude from Crypt::Random::Source::Strong::Win32 by Max Kanat-Alexander
 
 =head1 LICENSE AND COPYRIGHT
 
-Copyright (c) 2011, David Dick C<< <ddick@cpan.org> >>. All rights reserved.
+Copyright (c) 2023, David Dick C<< <ddick@cpan.org> >>. All rights reserved.
 
 This module is free software; you can redistribute it and/or
 modify it under the same terms as Perl itself.
