@@ -1,4 +1,4 @@
-use Test::More tests => 4;
+use Test::More tests => 6;
 use Crypt::URandom qw(urandom urandom_ub);
 
 ok(length(urandom(5000)) == 5000, 'urandom(5000) called successfully');
