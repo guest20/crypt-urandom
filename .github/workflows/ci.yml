@@ -38,8 +38,15 @@ jobs:
     - name: Run tests under prove
       if: ${{ startsWith(matrix.runner, 'windows-') }}
       run: prove -l t/
-      
-    - name: Run tests
+
+    - name: Run tests under cmake
+      if: ${{ startsWith(matrix.runner, 'windows-') }}
+      run: |
+        perl Makefile.PL
+        cmake
+        cmake test
+
+    - name: Run tests under make
       if: ${{ ! startsWith(matrix.runner, 'windows-') }}
       run: |
         perl Makefile.PL
