@@ -36,11 +36,11 @@ jobs:
         
     # RELEASE_TESTING is not enabled as some of the tests take way too long (more than 30 minutes)
     - name: Run tests under prove
-      if: ${{ startsWith(os, 'windows-') }}
+      if: ${{ startsWith(runner.os, 'windows-') }}
       run: prove -l t/
       
     - name: Run tests
-      if: ${{ ! startsWith(os, 'windows-') }}
+      if: ${{ ! startsWith(runner.os, 'windows-') }}
       run: |
         perl Makefile.PL
         make
