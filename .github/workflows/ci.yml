@@ -34,13 +34,13 @@ jobs:
         cpanm --installdeps .
         cpanm Test::CheckManifest
         
+    # RELEASE_TESTING is not enabled as some of the tests take way too long (more than 30 minutes)
     - name: Run tests under prove
-      # RELEASE_TESTING is not enabled as some of the tests take way too long (more than 30 minutes)
-      run: |
-        prove -l t/
-        
+      if: ${{ startsWith(os, 'windows-') }}
+      run: prove -l t/
+      
     - name: Run tests
-      # RELEASE_TESTING is not enabled as some of the tests take way too long (more than 30 minutes)
+      if: ${{ ! startsWith(os, 'windows-') }}
       run: |
         perl Makefile.PL
         make
